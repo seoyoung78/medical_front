@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <!-- IE는 인터넷 익스플로러를 의미하는 것으로 여러 가지 버전이 있다 (IE6부터 IE11까지) 그런데 이들 IE간에 버전차이로 인해 같은 웹 문서라 하더라도 다르게 보여지는
+    경우가 있다 이러한 문제를 해결하기 위해 MS에서 제공하는 기능이 바로 "호환성 보기"라는 기능이다 이 호환성 보기를 다른 말로 쿼크 모드라고 하며 IE 버전이
+    다르더라도 같은 화면을 볼 수 있도록 하는 것을 의미한다 위의 메타태그를
+    태그 사이에 삽입하면 된다 content="IE=Edge"는 IE브라우저에서, 각 버전 중 가장 최신 표준 모드를 선택하는 문서 모드이다 "IE=Edge"에 "IE=버전명"을 변경하면 웹
+    문서를 그 버전으로 보여주겠다는 의미이다 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- 데스크탑 브라우저에서는 viewport 메타 태그를 사용하지 않기 때문에 무시 간단히 말하면 작은 화면의 모바일 단말기에 웹 페이지 모두를 표시하려고 하니 전체적인
+    페이지의 배율이 조정되는 것입니다. 결과적으로 모바일 화면에 맞도록 전체적인 페이지가 축소되어 보이지만 페이지의 컨텐츠는 배율 축소가 발생해 가독성이
+    떨어지게 됩니다. 바로 이때 viewport를 설정하면 다양한 모바일 기기에서도 페이지의 너비나 화면 배율을 설정할 수 있습니다. -->
+    <meta id="viewport" name="viewport" content="width=1280" />
+    <!-- <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Web site created using create-react-app" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" /> -->
+
+    <!-- 위하고 CSS -->
+    <!-- <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link type="text/css" rel="stylesheet" href="http://172.16.114.131/selene/css/selene.css" />
+    <link rel="stylesheet" type="text/css" href="http://172.16.114.131/css/dialog.css"> -->
+
+    <!-- 위하고 RealGrid -->
+    <!-- <link type="text/css" rel="stylesheet" href="https://static.wehago.com/realgrid2/realgrid-style.css"></link>
+    <script src="realgrid.2.3.3/realgrid-lic.js"></script>
+    <script src="realgrid.2.3.3/realgrid.2.3.3.min.js"></script>
+    <script src="realgrid.2.3.3/libs/jszip.min.js"></script> -->
+
+    <!-- SheetJS -->
+    <!-- <script src="js/jquery-3.5.0.min.js"></script>
+    <script type="text/javascript" src="js/jszip.js"></script>
+    <script type="text/javascript" src="js/shim.js"></script>
+    <script type="text/javascript" src="js/xlsx.js"></script> -->
+
+    <title>TEST</title>
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link type="text/css" rel="stylesheet" href="http://172.16.114.131/selene/css/selene.css" />
+    <!-- <1link type="text/css" rel="stylesheet" href="http://172.16.114.131/css/common.css">
+    <1link rel="stylesheet" type="text/css" href="http://172.16.114.131/css/lux.css"> -->
+    <link rel="stylesheet" type="text/css" href="http://172.16.114.131/css/dialog.css">
+
+    <!-- RealGrid -->
+    <link type="text/css" rel="stylesheet" href="https://static.wehago.com/realgrid2/realgrid-style.css"></link>
+    <!-- <script src="realgrid.2.3.3/realgrid-lic.js"></script> -->
+    <!-- <script src="realgrid.2.3.3/realgrid.2.3.3.min.js"></script>
+    <script src="realgrid.2.3.3/libs/jszip.min.js"></script> -->
+    <!-- 로컬 라이센스 -->
+    <script>
+      var realGrid2Lic = "upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYm9cY8amGDkiMnVeQKUHJDjW2y71jtk+wteqHQ1mRMIXzEcGIrzZpzzNTakk0yR9UcO/hzNodVsIiqQNVtxmmYt";
+    </script>
+
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+
+    <!-- 아마란스 RealGrid -->
+    <script type="text/javascript" src="./realgrid/realgridjs.1.1.36.min.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="./realgrid/realgridjs-api.1.1.36.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="./realgrid/jszip.min.js" charset="UTF-8"></script>
+    <script type="text/javascript">
+      (function () {
+        RealGridJS.setRootContext('./realgrid/');
+      })();
+    </script>
+  </body>
+</html>
