@@ -77,21 +77,35 @@ export const saveRcpnMemo = async(pid, memo) => {
 };
 
 // 약속처방 ------------------------------------------------------
-// 처방 검색 목록
-export const getPrsList = async (keyword) => {
-  let list = await axios.get(API_URL + '/prs' + keyword);
+// 약속처방 목록
+export const getSetLists = async (id, keyword) => {
+  let list = await axios.get(API_URL + '/set', {params : {id, keyword}});
   return list.data;
 }
+// 약속처방 분류 목록
+export const getAllSetClsf = async () => {
+  let list = await axios.get(API_URL + '/set/clsf');
+  return list.data;
+}
+// 처방 검색 목록
+export const getPrsList = async (keyword) => {
+  let list = await axios.get(API_URL + '/set/prs' + keyword);
+  return list.data;
+};
+// 약속처방 저장
+export const SaveSetList = async (set, dig, prs) => {
+  await axios.post(API_URL + '/set', {set, dig, prs});
+};
 
 // ------------------------------------------------------------------------------------------------------------
 // 환자별 검사청방 목록
 export const getExmList = async (pid) => {
   let exmList = await axios.get(API_URL + '/e' + pid);
   return exmList.data;
-}
+};
 
 // 슬립 목록
 export const getSlip = async () => {
   let slipList = await axios.get(API_URL + '/s');
   return slipList.data;
-}
+};

@@ -1,21 +1,21 @@
 import { OBTButton, OBTComplete, OBTConfirm, OBTDropDownList2, OBTListGrid, OBTSnackbar, OBTTextField } from "luna-orbit";
-import { useState } from "react";
-import { getPrsList, searchDList } from "../../../utils/api/ApiService_진료";
+import { useEffect, useState } from "react";
+import { getAllSetClsf, getPrsList, SaveSetList, searchDList } from "../../../utils/api/ApiService_진료";
 import { initializeGrid } from "../../../utils/hooks/orbitListGrid";
 import { digComplete, digList, prsComplete, prsList } from "../../../data/CLRM0300Column";
-import { setList } from "../../../data/data";
 
 export default function CLRM0300Form (props) {
+  const { list, id, set, getSetList } = props;
+
   // 저장 Confirm 상태
   const [open, setOpen] = useState<boolean>(false);
   // snackbar 상태
   const [snack, setSnack] = useState<boolean>(false);
 
   // 약속처방 상태
-  const [tr, setTr] = useState({
-    set: '',
-    name: '',
-  })
+  const [newSet, setNewSet] = useState<any>({});
+  // 약속처방 분류
+  const [clsfList, setClsfList] = useState<any[]>([{}]);
 
   // 진단 상세
   const [digKeyword, setDigKeyword] = useState('');
@@ -40,6 +40,8 @@ export default function CLRM0300Form (props) {
   };
   const [pList, setPList] = useState([]);
   const [prsGrid, setPrsGrid] = useState(() => initializeGrid(prsOptions, prsList, pList));
+
+  // 처방 초기화
 
   // 진단 검색
   const searchDigList = async () => {
@@ -95,18 +97,20 @@ export default function CLRM0300Form (props) {
       setPrsKeyword('');
     }
     prsGrid.readData();
-  }
+  };
 
-  // 저장 버튼 클릭 시 발생 이벤트
-  const handleSave = () => {
-    setOpen(true);
-  }
-  // 확인 버튼 클릭 시 발생 이벤트
-  const handleConfirm = () => {
-    console.log('진단 리스트: ', dList);
-    console.log('처방 리스트: ', pList);
-    setSnack(true);
-    setOpen(false);
+  // 취소버튼 클릭 시 발생 이벤트
+  const handleCancle = () => {
+    // 분류, 명칭 초기화
+    if(id === '0') {
+      setNewSet({
+        set_clsf : '약속처방',
+        set_clsf_cd : '1'
+      });
+    } else {
+      setNewSet(set);
+    }
+    // listGrid 초기화
     setDLsit([]);
     setPList([]);
     digGrid.setProvider({
@@ -136,6 +140,41 @@ export default function CLRM0300Form (props) {
     });
     prsGrid.readData();
   }
+  // 저장 버튼 클릭 시 발생 이벤트
+  const handleSave = () => {
+    setOpen(true);
+
+    if(id === '0') {
+      getSetList();
+    };
+  }
+  // 확인 버튼 클릭 시 발생 이벤트
+  const handleConfirm = async () => {
+    console.log('진단 리스트: ', dList);
+    console.log('처방 리스트: ', pList);
+    setSnack(true);
+    setOpen(false);
+
+    await SaveSetList(newSet, dList, pList);
+    // handleCancle();
+  };
+
+  useEffect(() => {
+    let clsf : any = [];
+    list.map((list) => {
+      clsf.push({value: list.set_cd, text: list.set_nm})
+    });
+    setClsfList(clsf);
+
+    if(id === '0') {
+      setNewSet({
+        set_clsf : '약속처방',
+        set_clsf_cd : '1'
+      });
+    } else {
+      setNewSet(set);
+    }
+  }, [id])
 
   return(
     <div>
@@ -143,13 +182,14 @@ export default function CLRM0300Form (props) {
       <div className='col fr12'>
         <div className='fr6'>
           <div>약속처방 분류</div>
-          <OBTDropDownList2 value={tr.set} list={setList} onChange={(e) => setTr({...tr, set:e.value})} 
-          displayType={OBTDropDownList2.DisplayType.text}
+          <OBTDropDownList2 value={newSet.set_clsf_cd} list={clsfList}  width='90%'
+                            displayType={OBTDropDownList2.DisplayType.text}
+                            onChange={(e) => setNewSet({...newSet, set_clsf_cd : e.value, set_clsf : e.Source[0].text})} 
           />
         </div>
-        <div className='col fr6'>
+        <div className='fr6'>
           <div>약속 명칭</div>
-          <OBTTextField value={tr.name} placeHolder='약속처방 명칭을 입력하세요' width='300px' onChange={(e) => setTr({...tr, name:e.value})}/>
+          <OBTTextField value={newSet.set_nm} placeHolder='약속처방 명칭을 입력하세요' width='90%' onChange={(e) => setNewSet({...newSet, set_nm: e.value})} />
         </div>
       </div>
       <div>
@@ -183,7 +223,7 @@ export default function CLRM0300Form (props) {
       </div>
       <div>
         <div></div>
-        <OBTButton labelText='취소' onClick={()=>props.setId('0')}/>
+        <OBTButton labelText='취소' onClick={handleCancle}/>
         <OBTButton labelText='저장' theme={OBTButton.Theme.blue} onClick={handleSave}/>
         {open? 
         <OBTConfirm title='약속처방 저장' labelText='약속처방을 저장하시겠습니까?' type={OBTConfirm.Type.success} onCancel={()=>setOpen(false)} onConfirm={handleConfirm} />
