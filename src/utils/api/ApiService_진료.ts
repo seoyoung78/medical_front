@@ -93,8 +93,12 @@ export const getPrsList = async (keyword) => {
   return list.data;
 };
 // 약속처방 저장
-export const SaveSetList = async (set, dig, prs) => {
+export const saveSetList = async (set, dig, prs) => {
   await axios.post(API_URL + '/set', {set, dig, prs});
+};
+// 약속처방 수정
+export const updateSetList = async (set, dig, prs) => {
+  await axios.patch(API_URL + '/set', {set, dig, prs});
 };
 
 // ------------------------------------------------------------------------------------------------------------

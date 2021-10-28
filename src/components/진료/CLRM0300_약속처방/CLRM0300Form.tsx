@@ -1,6 +1,6 @@
 import { OBTButton, OBTComplete, OBTConfirm, OBTDropDownList2, OBTListGrid, OBTSnackbar, OBTTextField } from "luna-orbit";
 import { useEffect, useState } from "react";
-import { getAllSetClsf, getPrsList, SaveSetList, searchDList } from "../../../utils/api/ApiService_진료";
+import { getPrsList, saveSetList, searchDList, updateSetList } from "../../../utils/api/ApiService_진료";
 import { initializeGrid } from "../../../utils/hooks/orbitListGrid";
 import { digComplete, digList, prsComplete, prsList } from "../../../data/CLRM0300Column";
 
@@ -40,8 +40,6 @@ export default function CLRM0300Form (props) {
   };
   const [pList, setPList] = useState([]);
   const [prsGrid, setPrsGrid] = useState(() => initializeGrid(prsOptions, prsList, pList));
-
-  // 처방 초기화
 
   // 진단 검색
   const searchDigList = async () => {
@@ -143,10 +141,6 @@ export default function CLRM0300Form (props) {
   // 저장 버튼 클릭 시 발생 이벤트
   const handleSave = () => {
     setOpen(true);
-
-    if(id === '0') {
-      getSetList();
-    };
   }
   // 확인 버튼 클릭 시 발생 이벤트
   const handleConfirm = async () => {
@@ -155,7 +149,13 @@ export default function CLRM0300Form (props) {
     setSnack(true);
     setOpen(false);
 
-    await SaveSetList(newSet, dList, pList);
+    if(id === '0') {
+      getSetList();
+      await saveSetList(newSet, dList, pList);
+    } else {
+      await updateSetList(newSet, dList, pList);
+    };
+    getSetList();
     // handleCancle();
   };
 
