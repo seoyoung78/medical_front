@@ -29,7 +29,7 @@ export const digList = [
         name: 'dgns_hnm', type: 'text', width: 800, 
       },
       {
-        name: 'img', type: 'button', buttonBisibility: "mouseOver",
+        name: 'img', type: 'button', buttonVisibility: "mouseOver",
         imageButtons: {
           images: [{
             name: 'del', up: deleteImg, hover: deleteImg, down: deleteImg, cusor: 'pointer'
@@ -63,7 +63,7 @@ export const prsComplete = {
 
 // 처방 OBTListGrid 컬럼
 export const prsList = [
-  {name: 'mix', header: 'MIX', type: 'text', width: 10, visible: true, sortable: false},
+  {name: 'mix', header: 'MIX', type: 'check', width: 10, visible: true, sortable: false},
   {name: 'prsc_cd', header: '처방코드', type: 'text', width: 20, visible: true, sortable: false},
   {name: 'prsc_nm', header: '처방명', type: 'text', width: 80, visible: true, sortable: false, useTooltip: true,
   style: {
@@ -72,7 +72,7 @@ export const prsList = [
   {name: 'ontm_vol', header: '1회량', type: 'text', width: 20, visible: true, sortable: false},
   {name: 'notm', header: '횟수', type: 'text', width: 20, visible: true, sortable: false},
   {name: 'nody', header: '일수', type: 'text', width: 20, visible: true, sortable: false},
-  {name: 'totm_cd', header: '용법', type: 'text', width: 20, visible: true, sortable: false},
+  {name: 'itom_cd', header: '용법', type: 'text', width: 20, visible: true, sortable: false},
   {name: 'insr', header: '급여', type: 'dropDown', width: 20, visible: true, sortable: false,
     dropDownDataItems: [
       {text: '급여'},
@@ -102,10 +102,10 @@ export const prsList = [
   {name: 'group', header: '예외', type: 'group', width: 20, hideChildHeaders: true, sortable: false, 
     columns: [
       {
-        name: 'iotm_cd', type: 'text', width: 150,
+        name: 'hsin_prsc_resn_cd', type: 'text', width: 150,
       },
       {
-        name: 'img', type: 'button', buttonVisibility: 'mouseOver',
+        name: 'img', type: 'button', buttonVisibility: "mouseOver",
         imageButtons: {
           images: [{
             name: 'del', up: deleteImg, hover: deleteImg, down: deleteImg, cusor: 'pointer'

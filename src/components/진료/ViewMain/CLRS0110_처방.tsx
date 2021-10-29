@@ -104,7 +104,6 @@ export default function CLRS0110() {
 
   // list 내 버튼 클릭 시
   prsGrid.onImageButtonClicked.set((e) => {
-    console.log(e)
     let newList;
     // 삭제버튼 클릭 시
     if(e.name === 'del') {
@@ -113,7 +112,6 @@ export default function CLRS0110() {
     } 
     // 이동버튼 클릭 시
     else if (e.name === '이동버튼') {
-      console.log(e);
       let oldrow = pList.filter(list => list.prsc_cd === e.values.prsc_cd)[0];
       newList.splice(e.rowIndex, 0, oldrow);
       setPList(newList);
@@ -131,7 +129,7 @@ export default function CLRS0110() {
       }
     });
     prsGrid.readData();
-  })
+  });
 
   // realgrid 사용
   // const prescriptionGrid = useGrid();

@@ -26,7 +26,7 @@ export default function CLRM0300Form (props) {
     rowMovable: true,
     rowMovableColumnWidth: 3
   };
-  const [dList, setDLsit] = useState([]);
+  const [dList, setDLsit] = useState<any[]>([]);
   const [digGrid, setDigGrid] = useState(() => initializeGrid(digOptions, digList, dList));
 
   // 처방 상세
@@ -38,7 +38,7 @@ export default function CLRM0300Form (props) {
     rowMovable: true,
     rowMovableColumnWidth: 3
   };
-  const [pList, setPList] = useState([]);
+  const [pList, setPList] = useState<any[]>([]);
   const [prsGrid, setPrsGrid] = useState(() => initializeGrid(prsOptions, prsList, pList));
 
   // 진단 검색
@@ -69,6 +69,37 @@ export default function CLRM0300Form (props) {
     digGrid.readData();
   }
 
+  // 진단 list 버튼 클릭 시
+  digGrid.onImageButtonClicked.set((e) => {
+    let newList;
+    // 삭제 버튼 클릭 시
+    if(e.name === 'del') {
+      newList = dList.filter(list => list.dgns_cd !== e.values.dgns_cd);
+      setDLsit(newList);
+    }
+    // 이동버튼 클릭 시
+    else if(e.name === '이동버튼') {
+      newList = dList.filter(list => list.dgns_cd !== e.values.dgns_cd);
+      let oldrow = dList.filter(list => list.dgns_cd === e.values.dgns_cd)[0];
+      newList.splice(e.rowIndex, 0, oldrow);
+      setDLsit(newList);
+    };
+
+    digGrid.setProvider({
+      read: () => {
+        return new Promise((resolve) => {
+          resolve(newList);
+        });
+      },
+      readPage: () => {
+        return new Promise((resolve) => {
+          resolve(newList);
+        })
+      }
+    });
+    digGrid.readData();
+  })
+
   // 처방 검색
   const searchPList = async () => {
     let list = await getPrsList(prsKeyword);
@@ -77,9 +108,9 @@ export default function CLRM0300Form (props) {
 
   // 선택한 처방 리스트에 추가
   const clickPrs = (e) => {
-    if(e.target.data !== undefined) {
-      let newList : any = pList.concat(e.target.data);
-      console.log(newList);
+    if(e.Source !== null) {
+      let newList = pList.concat(e.Source);
+      
       // 급여, 원외 값 지정
       for(var i = 0; i < newList.length; i++) {
         if(newList[i].insr === undefined) {
@@ -88,9 +119,10 @@ export default function CLRM0300Form (props) {
         if(newList[i].hsin_hsot_dvcd === undefined) {
           newList[i].hsin_hsot_dvcd = '-';
         }
-      }
+      };
 
       setPList(newList);
+
       prsGrid.setProvider({
         read: () => {
           return new Promise((resolve) => {
@@ -107,6 +139,69 @@ export default function CLRM0300Form (props) {
     }
     prsGrid.readData();
   };
+
+  // 처방 마우스 오버 시
+  prsGrid.onMouseHover.set((e) : any => {
+    if(e.isEllipse) {
+      e.tooltipText = e.dataRow[e.columnName];
+    }
+  });
+
+  // 처방 dropdown 값 변경 시
+  prsGrid.onEditCommit.set((e) => {
+    let newList : any = pList.concat();
+    switch (e.columnName) {
+      case 'insr':
+        newList[e.rowIndex].insr = e.newValue;
+        break;
+      case 'hsin_hsot_dvcd':
+        newList[e.rowIndex].hsin_hsot_dvcd = e.newValue;
+        break;
+    }
+    setPList(newList);
+  });
+
+  // 처방 list 내 버튼 클릭 시
+  prsGrid.onImageButtonClicked.set((e) => {
+    // 삭제버튼 클릭 시
+    if(e.name === 'del') {
+      let newList = pList.filter(list => list.prsc_cd !== e.values.prsc_cd);
+      setPList(newList);
+      prsGrid.setProvider({
+        read: () => {
+          return new Promise((resolve) => {
+            resolve(newList);
+          });
+        },
+        readPage: () => {
+          return new Promise((resolve) => {
+            resolve(newList);
+          });
+        }
+      });
+      prsGrid.readData();
+    } 
+    // 이동버튼 클릭 시
+    else if (e.name === '이동버튼') {
+      let newList = pList.filter(list => list.prsc_cd !== e.values.prsc_cd);
+      let oldrow = pList.filter(list => list.prsc_cd === e.values.prsc_cd)[0];
+      newList.splice(e.rowIndex, 0, oldrow);
+      setPList(newList);
+      prsGrid.setProvider({
+        read: () => {
+          return new Promise((resolve) => {
+            resolve(newList);
+          });
+        },
+        readPage: () => {
+          return new Promise((resolve) => {
+            resolve(newList);
+          });
+        }
+      });
+      prsGrid.readData();
+    };
+  });
 
   // 취소버튼 클릭 시 발생 이벤트
   const handleCancle = () => {
