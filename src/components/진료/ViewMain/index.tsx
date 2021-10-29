@@ -9,7 +9,7 @@ import CLRS0103 from "./CLRS0103_접수메모";
 import CLRS0108 from "./CLRS0108_진단";
 import InspectionResult from "./InspectionResult";
 import PhysicalReview from "./PhysicalReview";
-import Prescription from "./Prescription";
+import CLRS0110 from "./CLRS0110_처방";
 import PrescriptionInquiry from "./PrescriptionInquiry";
 import ProgressNote from "./ProgressNote";
 
@@ -44,7 +44,7 @@ export default function ViewMain() {
               {/* 경과기록, 진단, 처방, 보류/완료 버튼 */}
               <ProgressNote/>
               <CLRS0108 save={save}/>
-              <Prescription/>
+              <CLRS0110/>
               <div>
                 <OBTButton labelText='처방조회' onClick={() => setOpen(true)}/>
                 <CLRP0003 open={open} setOpen={setOpen}/>

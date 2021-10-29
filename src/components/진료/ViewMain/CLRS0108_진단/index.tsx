@@ -19,6 +19,7 @@ export default function CLRS0108(props) {
   const options = {
     editable: true,
     appendable: true,
+    useServerSort: false,
     columnMovable: true,
     rowMovable: true,
     rowMovableColumnWidth: 7
@@ -53,8 +54,8 @@ export default function CLRS0108(props) {
 
   // 선택한 진단 리스트에 추가
   const clickList = (e) => {
-    if(e.target.data !== undefined) {
-      let newList = list.concat(e.target.data);
+    if(e.Source !== null) {
+      let newList = list.concat(e.Source);
 
       // 형태, 부위 값 지정
       if (newList.length === 1) {
@@ -95,7 +96,7 @@ export default function CLRS0108(props) {
     if(e.isEllipse) {
       e.tooltipText = e.dataRow[e.columnName];
     }
-  })
+  });
 
   // list dropdown 값 변경 시
   grid.onEditCommit.set((e)=>{
@@ -141,9 +142,9 @@ export default function CLRS0108(props) {
         value: e.values.dgns_cd
       });
       setDelDialog(true);
-    };
+    }
     // 이동 버튼 클릭 시
-    if(e.name === '이동버튼') {
+    else if(e.name === '이동버튼') {
       let newList = list.filter(list => list.dgns_cd !== e.values.dgns_cd);
       let oldrow = list.filter(list => list.dgns_cd === e.values.dgns_cd)[0];
       // console.log(oldrow);

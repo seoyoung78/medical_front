@@ -78,7 +78,18 @@ export default function CLRM0300Form (props) {
   // 선택한 처방 리스트에 추가
   const clickPrs = (e) => {
     if(e.target.data !== undefined) {
-      let newList = pList.concat(e.target.data);
+      let newList : any = pList.concat(e.target.data);
+      console.log(newList);
+      // 급여, 원외 값 지정
+      for(var i = 0; i < newList.length; i++) {
+        if(newList[i].insr === undefined) {
+          newList[i].insr = '급여';
+        }
+        if(newList[i].hsin_hsot_dvcd === undefined) {
+          newList[i].hsin_hsot_dvcd = '-';
+        }
+      }
+
       setPList(newList);
       prsGrid.setProvider({
         read: () => {

@@ -23,11 +23,11 @@ export const clrs0108Columns = {
 // 진단 OBTListGrid 컬럼
 export const clrs0108Grid = [
   {name: 'dgns_cd', header: '진단코드', type: 'text', width: 20, visible: true, sortable: false},
-  {name: 'dgns_hnm', header: '진단명', type: 'text', width: 60, visible: true, sortable: false, editable: true, tooltip: true,
+  {name: 'dgns_hnm', header: '진단명', type: 'text', width: 60, visible: true, sortable: false, tooltip: true,
   style: {
     textWrap: "ellipse" // 말줄임 사용
   }},
-  {name: 'dvsn', header: '형태', type: 'dropDown', width: 30, visible: true, sortable: false, editable: true, 
+  {name: 'dvsn', header: '형태', type: 'dropDown', width: 30, visible: true, sortable: false, 
     dropDownDataItems: [
       {text: '주상병'},
       {text: '부상병'},
@@ -38,8 +38,8 @@ export const clrs0108Grid = [
     buttonVisibility: 'always',
     showButtonOnlyEditable: true
   },
-  {name: 'rlot', header: 'R/O', type: 'check', width: 10, visible: true, sortable: false, editable: true},
-  {name: 'site', header: '부위', type: 'dropDown', width: 20, visible: true, sortable: false, editable: true,
+  {name: 'rlot', header: 'R/O', type: 'check', width: 10, visible: true, sortable: false},
+  {name: 'site', header: '부위', type: 'dropDown', width: 20, visible: true, sortable: false,
     dropDownDataItems: [
       {text: '-'},
       {text: 'Rt'},

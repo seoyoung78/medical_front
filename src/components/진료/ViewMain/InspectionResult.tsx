@@ -38,6 +38,7 @@ export default function InspectionResult() {
     })
   };
 
+  
   const setting = async () => {
     try {
       if (patient.pid !== '') {
