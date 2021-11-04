@@ -217,32 +217,34 @@ export default function CLRM0300Form (props) {
     // listGrid 초기화
     setDLsit([]);
     setPList([]);
-    digGrid.setProvider({
-      read: () => {
-        return new Promise((resolve)=> {
-          resolve([]);
-        });
-      },
-      readPage: () => {
-        return new Promise((resolve) => {
-          resolve([]);
-        })
-      }
-    });
-    digGrid.readData();
-    prsGrid.setProvider({
-      read: () => {
-        return new Promise((resolve)=> {
-          resolve([]);
-        });
-      },
-      readPage: () => {
-        return new Promise((resolve) => {
-          resolve([]);
-        })
-      }
-    });
-    prsGrid.readData();
+    digGrid.clearData();
+    prsGrid.clearData();
+    // digGrid.setProvider({
+    //   read: () => {
+    //     return new Promise((resolve)=> {
+    //       resolve([]);
+    //     });
+    //   },
+    //   readPage: () => {
+    //     return new Promise((resolve) => {
+    //       resolve([]);
+    //     })
+    //   }
+    // });
+    // digGrid.readData();
+    // prsGrid.setProvider({
+    //   read: () => {
+    //     return new Promise((resolve)=> {
+    //       resolve([]);
+    //     });
+    //   },
+    //   readPage: () => {
+    //     return new Promise((resolve) => {
+    //       resolve([]);
+    //     })
+    //   }
+    // });
+    // prsGrid.readData();
   }
   // 저장 버튼 클릭 시 발생 이벤트
   const handleSave = () => {
