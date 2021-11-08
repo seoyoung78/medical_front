@@ -207,18 +207,19 @@ export default function CLRS0108(props) {
   const saveDigList = async () => {
     await saveDList(patient.pid, rcpn, list);
     setList([]);
-    grid.setProvider({
-      read: () => {
-        return new Promise((resolve) => {
-          resolve([]);
-        });
-      },
-      readPage: () => {
-        return new Promise((resolve) => {
-          resolve([]);
-        });
-      }
-    });
+    grid.clearData();
+    // grid.setProvider({
+    //   read: () => {
+    //     return new Promise((resolve) => {
+    //       resolve([]);
+    //     });
+    //   },
+    //   readPage: () => {
+    //     return new Promise((resolve) => {
+    //       resolve([]);
+    //     });
+    //   }
+    // });
   };
 
   useEffect(() => {
@@ -239,7 +240,7 @@ export default function CLRS0108(props) {
           <button onClick={() => setOpenset(true)}>
             <img src="./imgs/setting.png" alt=""></img>
           </button>
-          <CLRS0108Settings open={openset} setOpen={setOpenset} grid={grid} setVisible={grid.setColumnVisible} handleSetting={handleSetting}/>
+          <CLRS0108Settings open={openset} setOpen={setOpenset} grid={grid} handleSetting={handleSetting}/>
         <div style={{height: 200}}>
           <OBTListGrid interface={grid}  onChange={()=>{}}/>
           {delDialog? 
